@@ -2,15 +2,26 @@ const express = require('express');
 var cors = require('cors');
 const { json } = require('express/lib/response');
 
+const { dbConnection } = require('../db/config');
+
 class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
         this.usersPath = '/api/users';
+
+        // db connection
+        this.connectDB();
         // middlewares
         this.middlewares();
-        // rutas
+        // routes
         this.routes();
+        // everything else fails
+        this.forbidden();
+    }
+
+    async connectDB() {
+        await dbConnection();
     }
     
     middlewares() {
@@ -25,6 +36,13 @@ class Server {
     routes() {
         // la nueva ruta de usuarios
         this.app.use(this.usersPath, require('../routes/user.routes'));
+    }
+
+    forbidden() {
+        this.app.use((request, response ) => {
+            response.statusCode = 404;
+            response.send('404!');
+        });
     }
 
     listen() {
