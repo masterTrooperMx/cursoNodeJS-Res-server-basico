@@ -87,12 +87,16 @@ const usersPatch = (req, res = response) => {
 
 const usersDelete = async (req = request, res = response) => {
     const id = req.params.id;
-
+    // despues de crear token
+    const uid = req.uid;
+    const a_user = req.user;
     try {
         // borrandolo logicamente
         const user = await User.findByIdAndUpdate(id, {state: false});
         res.status(403).json({
-            user
+            user,
+            uid,
+            a_user
         });
     } catch (error) {
         throw new Error('No se puede borrar el usuario');

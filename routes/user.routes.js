@@ -1,14 +1,23 @@
 const { Router } = require('express');
 const {check} = require('express-validator');
-
+// controllers
 const { 
-    usersGet, 
+    usersGet,
     usersPost, 
     usersPut, 
     usersPatch, 
     usersDelete } = require('../controllers/users.controllers');
-
-const { validaCampos } = require('../middlewares/valida-campos');
+// middleware
+// const { validaCampos } = require('../middlewares/valida-campos');
+// const { validaJWT } = require('../middlewares/valida-jwt');
+// const { esAdminRol, tieneRol } = require('../middlewares/valida-roles');
+const {
+    validaCampos,
+    validaJWT,
+    esAdminRol,
+    tieneRol
+} = require('../middlewares');
+// helpers
 const { 
     isValidRol,
     emailExiste,
@@ -37,9 +46,13 @@ router.post('/', [check('name','El nombre es obligatorio').not().isEmpty()
 // API patch
 router.patch('/', usersPatch);
 // API delete
-router.delete('/:id', [check('id', 'No es un Mongo ID').isMongoId()
+router.delete('/:id', [
+                    validaJWT
+                    //, esAdminRol
+                    , tieneRol('ADMIN_ROL','USER_ROL')
+                    , check('id', 'No es un Mongo ID').isMongoId()
                     , check('id').custom(idExiste)
-                    , validaCampos] 
-                    , usersDelete);
+                    , validaCampos
+                   ], usersDelete);
 
 module.exports = router;

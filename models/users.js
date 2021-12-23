@@ -34,8 +34,9 @@ const UserSchema = Schema({
 
 // vamos a sobrecargar un metodo de mongoose en este caso
 // hacemos esto para sacar de la respuesta la version y el password
-UserSchema.methods.toJSON = function () {
-    const {__v, pass, ..._usuario} = this.toObject();
+UserSchema.methods.toJSON = function () { // serializar para el momento que utilizamos JSON de lo que viene de Mongo
+    const {__v, _id, pass, ..._usuario} = this.toObject();
+    _usuario.uid = _id; // cambiando el _id a uid
     return _usuario;
 };
 
