@@ -37,12 +37,12 @@ const usersPost = async (req, res = response) => {
     const body = req.body;
     const {name, email, pass, rol} = body;
     //const user = new User(body); // creamos la instancia = tupla
-    const user = new User({name, email, pass, rol});  
-    // hacer el hash del pass
-    const salt = bcryptjs.genSaltSync(10);
-    user.pass = bcryptjs.hashSync(pass, salt);
-
     try {
+        const user = new User({name, email, pass, rol});  
+        // hacer el hash del pass
+        const salt = bcryptjs.genSaltSync(10);
+        user.pass = bcryptjs.hashSync(pass, salt);
+    
         await user.save(); // grabamos la tupla
     } catch (error) {
         console.log(error);
