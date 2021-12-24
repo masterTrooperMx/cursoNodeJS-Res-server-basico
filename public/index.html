@@ -40,7 +40,8 @@
         //console.log('id_token', response.credential);
         // lo mandamos al backe-end
         const token = { id_token : response.credential }
-        fetch("http://localhost:8080/auth/google", 
+        //fetch("http://localhost:8080/auth/google", // dev
+        fetch("https://mi-rest-server.herokuapp.com/auth/google", // prod
             {
                 method : 'POST',
                 headers : { 'Content-type' : 'application/json'},
