@@ -8,9 +8,6 @@ const {
     usersPatch, 
     usersDelete } = require('../controllers/users.controllers');
 // middleware
-// const { validaCampos } = require('../middlewares/valida-campos');
-// const { validaJWT } = require('../middlewares/valida-jwt');
-// const { esAdminRol, tieneRol } = require('../middlewares/valida-roles');
 const {
     validaCampos,
     validaJWT,

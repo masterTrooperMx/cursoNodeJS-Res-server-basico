@@ -8,5 +8,5 @@ const RolSchema = Schema({
 });
 
 // https://mongoosejs.com/docs/models.html
-// el nombre de la collection (tabla) es Rol pero le va a poner roles por defecto
+// el nombre de la collection (tabla) es Rol pero le va a poner rols por defecto
 module.exports = model('Rol', RolSchema);

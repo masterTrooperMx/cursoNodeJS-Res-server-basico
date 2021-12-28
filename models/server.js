@@ -8,9 +8,13 @@ class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
-        this.usersPath = '/api/users';
-        this.authPath = '/auth';
-
+        this.paths = {
+            users     : '/api/users',
+            auth      : '/auth',
+            categorias: '/api/categorias',
+            productos : '/api/productos',
+            buscar    : '/api/buscar'
+        }
         // db connection
         this.connectDB();
         // middlewares
@@ -36,9 +40,15 @@ class Server {
 
     routes() {
         // la nueva ruta de usuarios
-        this.app.use(this.usersPath, require('../routes/user.routes'));
+        this.app.use(this.paths.users, require('../routes/user.routes'));
         // nueva ruta de autenticacion
-        this.app.use(this.authPath, require('../routes/auth.routes'));
+        this.app.use(this.paths.auth, require('../routes/auth.routes'));
+        // nueva ruta de categorias
+        this.app.use(this.paths.categorias, require('../routes/categoria.routes'));
+        // nueva ruta de productos
+        this.app.use(this.paths.productos, require('../routes/producto.routes'));
+        // nueva ruta para buscar lo que sea
+        this.app.use(this.paths.buscar, require('../routes/buscar.routes'));
     }
 
     forbidden() {

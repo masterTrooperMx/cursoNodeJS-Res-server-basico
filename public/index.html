@@ -27,18 +27,7 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
         function handleCredentialResponse(response) {
-           // decodeJwtResponse() is a custom function defined by you
-           // to decode the credential response.
-        //    const responsePayload = decodeJwtResponse(response.credential);
-      
-        //    console.log("ID: " + responsePayload.sub);
-        //    console.log('Full Name: ' + responsePayload.name);
-        //    console.log('Given Name: ' + responsePayload.given_name);
-        //    console.log('Family Name: ' + responsePayload.family_name);
-        //    console.log("Image URL: " + responsePayload.picture);
-        //    console.log("Email: " + responsePayload.email);
-        //console.log('id_token', response.credential);
-        // lo mandamos al backe-end
+        // lo mandamos al back-end
         const token = { id_token : response.credential }
         //fetch("http://localhost:8080/auth/google", // dev
         fetch("https://mi-rest-server.herokuapp.com/auth/google", // prod
