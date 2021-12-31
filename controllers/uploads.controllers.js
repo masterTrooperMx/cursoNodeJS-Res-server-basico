@@ -13,8 +13,7 @@ const cloudinary = require('cloudinary').v2;
 const configCloudinary = { 
     cloud_name: `${process.env.CLOUD_NAME}`, 
     api_key: `${process.env.CLOUDINARY_KEY}`, 
-    api_secret: `${process.env.CLOUDINARY_API}`,
-    secure: true
+    api_secret: `${process.env.CLOUDINARY_API}`
  };
  console.log(configCloudinary);
      cloudinary.config(configCloudinary);
