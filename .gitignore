@@ -1,1 +1,6 @@
 node_modules/
+
+public/uploads/**.*
+!public/uploads/productos/dummy_productos.jpge
+!public/uploads/usuarios/dummy_usuarios.jpge
+!public/uploads/readme.md

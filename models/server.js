@@ -1,6 +1,7 @@
 const express = require('express');
-var cors = require('cors');
+const cors = require('cors');
 const { json } = require('express/lib/response');
+const fileUpload = require('express-fileupload');
 
 const { dbConnection } = require('../db/config');
 
@@ -13,7 +14,8 @@ class Server {
             auth      : '/auth',
             categorias: '/api/categorias',
             productos : '/api/productos',
-            buscar    : '/api/buscar'
+            buscar    : '/api/buscar',
+            uploads   : '/uploads'
         }
         // db connection
         this.connectDB();
@@ -36,6 +38,16 @@ class Server {
         this.app.use(express.json());
         // publica la carpeta publica
         this.app.use(express.static('public'));
+        // para los uploads
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/'
+        }));
+        // poner limite a los archivos a subir y permite crear subdirectorios cuando se sube archivos
+        // this.app.use(fileUpload({
+        //     limits: { fileSize: 50 * 1024 * 1024 },
+        //     createParentPath: true
+        //   }));
     }
 
     routes() {
@@ -49,6 +61,8 @@ class Server {
         this.app.use(this.paths.productos, require('../routes/producto.routes'));
         // nueva ruta para buscar lo que sea
         this.app.use(this.paths.buscar, require('../routes/buscar.routes'));
+        // nueva ruta para subir archivos al servidor
+        this.app.use(this.paths.uploads, require('../routes/upload.routes'));
     }
 
     forbidden() {

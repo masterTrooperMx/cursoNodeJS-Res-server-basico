@@ -51,7 +51,18 @@ const idExisteP = async (id = '') => {
     if(!existeId) {
         throw new Error('no existe el ID en la tabla Productos');
     }
+    return true;
 }; 
+
+// no estamos haciendo un return implicitamente asi que lo mandamos explicitamente
+const coleccioneasPermitidas = (col = '', coleccion = []) => {
+    // verifica que col este dentro del arreglo de colecciones
+    const existeCol = coleccion.includes(col);
+    if(!existeCol) {
+        throw new Error(`La coleccion: ${col}, no esta dentro de la lista de permitidos: ${coleccion}`);
+    }
+    return true;
+};
 
 module.exports = {
     isValidRol,
@@ -59,5 +70,6 @@ module.exports = {
     idExiste,
     idExisteC,
     idExisteP,
-    categoriaExiste
+    categoriaExiste,
+    coleccioneasPermitidas
 };
